@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>byh Browser — インストール</title>
+  <style>
+    :root {
+      --graphite-950: #0B0D12;
+      --graphite-900: #0F1218;
+      --graphite-800: #161A22;
+      --graphite-700: #1F2530;
+      --line: #2A303C;
+      --ink: #E7ECF3;
+      --ink-muted: #9AA4B2;
+      --signal: #F2A93B;
+      --signal-hover: #FFC167;
+      --verified: #3FB950;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--graphite-900);
+      color: var(--ink);
+      font-family: 'UD Digi Kyokasho NK-R', sans-serif;
+    }
+
+    .mono {
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    header {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 24px 24px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      font-size: 14px;
+      margin-left: 24px;
+    }
+
+    nav a:hover {
+      color: var(--ink);
+    }
+
+    .logo {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    main {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 64px 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    @media (max-width: 800px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .version-tag {
+      color: var(--ink-muted);
+      font-size: 13px;
+    }
+
+    h1 {
+      font-size: 44px;
+      line-height: 1.15;
+      font-weight: 800;
+      margin: 16px 0;
+      letter-spacing: -0.02em;
+    }
+
+    .lead {
+      color: var(--ink-muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 32px;
+      flex-wrap: wrap;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      color: #ffffff;
+      background: linear-gradient(to right, #6322ef, #8c4bfe);
+      text-decoration: none;
+      padding: 16px 36px;
+      border-radius: 9999px;
+      box-shadow: 0 10px 25px rgba(99, 34, 239, 0.3);
+      transition: all 0.15s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .download-btn:hover {
+      filter: brightness(1.1);
+      transform: scale(1.02);
+    }
+
+    .secondary-btn {
+      background: var(--graphite-800);
+      border: 1px solid var(--line);
+      box-shadow: none;
+    }
+
+    .secondary-btn:hover {
+      background: var(--graphite-700);
+      border-color: var(--ink-muted);
+    }
+
+    .installer-card {
+      background: var(--graphite-800);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 24px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+    }
+
+    .traffic-lights {
+      display: flex;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+      align-items: center;
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .installer-title {
+      color: var(--ink-muted);
+      font-size: 12px;
+      margin-left: 8px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: var(--graphite-700);
+      border-radius: 999px;
+      margin-top: 24px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 66%;
+      height: 100%;
+      background: var(--signal);
+      border-radius: 999px;
+    }
+
+    .progress-label {
+      margin-top: 8px;
+      color: var(--ink-muted);
+      font-size: 12px;
+    }
+
+    .features {
+      max-width: 1152px;
+      margin: 0 auto;
+      padding: 0 24px 64px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 800px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .feature {
+      border-top: 1px solid var(--line);
+      padding-top: 20px;
+    }
+
+    .feature h3 {
+      font-size: 16px;
+      margin: 0 0 8px;
+    }
+
+    .feature p {
+      color: var(--ink-muted);
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 32px 24px;
+    }
+
+    footer .inner {
+      max-width: 1152px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      color: var(--ink-muted);
+      font-size: 13px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    footer a {
+      color: var(--ink-muted);
+      margin-right: 20px;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--ink);
+    }
+
+    /* --- モーダル (ポップアップ) スタイル --- */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(11, 13, 18, 0.85);
+      backdrop-filter: blur(6px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-content {
+      background: var(--graphite-800);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      width: 100%;
+      max-width: 850px;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+      transform: translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: var(--ink-muted);
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .close-btn:hover {
+      color: var(--ink);
+      background: var(--graphite-700);
+    }
+
+    .code-scroll-area {
+      padding: 20px 24px;
+      overflow-y: auto;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #7ee787;
+      background: var(--graphite-950);
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">byh Browser</div>
+    <nav>
+      <a href="#features">機能</a>
+      <a href="#download">ダウンロード</a>
+      <a href="#">利用規約</a>
+    </nav>
+  </header>
+
+  <main>
+    <div>
+      <p class="version-tag mono">v1.0.0 · Windows 10 / 11 対応</p>
+      <h1>操作が、<br>軽い</h1>
+      <p class="lead">byh Browserは、他のブラウザとは違って操作が軽いのと、インストール後にすぐに使えます。</p>
+      
+      <div class="cta-row">
+        <!-- Windows版ダウンロードボタン -->
+        <a href="https://github.com/Rin699-hub/byhbrowser/releases/download/1.0.0/Lbn.Byh.Browser.zip" class="download-btn" id="download">
+          <svg class="fill-current" viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+            <path d="M0 0h11.25v11.25H0zm12.75 0H24v11.25H12.75zM0 12.75h11.25V24H0zm12.75 0H24V24H12.75z"></path>
+          </svg>
+          Windows版をダウンロード
+        </a>
+
+        <!-- ソースコードを見るボタン (モーダル起動) -->
+        <button type="button" class="download-btn secondary-btn" id="openCodeModal">
+          <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: currentColor;">
+            <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
+          </svg>
+          ソースコードを見る
+        </button>
+      </div>
+    </div>
+
+    <div class="installer-card">
+      <div class="traffic-lights">
+        <span class="dot" style="background:#FF5F57"></span>
+        <span class="dot" style="background:#FEBC2E"></span>
+        <span class="dot" style="background:#28C840"></span>
+        <span class="installer-title mono">byh Browser Setup Wizard</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill"></div>
+      </div>
+      <p class="progress-label mono">Installing...</p>
+    </div>
+  </main>
+
+  <!-- 機能紹介エリア -->
+  <section class="features" id="features">
+    <div class="feature">
+      <h3>🚀 軽量・高速</h3>
+      <p>不要な機能を削ぎ落とし、圧倒的に軽い動作を実現しました。</p>
+    </div>
+    <div class="feature">
+      <h3>⚡ すぐに使える</h3>
+      <p>複雑な初期設定は不要。インストール後すぐに快適なWeb検索をスタートできます。</p>
+    </div>
+    <div class="feature">
+      <h3>⚙️ かんたんカスタマイズ</h3>
+      <p>起動ページや検索エンジンの切り替え、閲覧データの削除もワンクリックで完結。</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="inner">
+      <div>© Lbn.Ltd - byh Browser</div>
+      <div>
+        <a href="#">利用規約</a>
+        <a href="#">プライバシーポリシー</a>
+        <a href="#">お問い合わせ</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ソースコード表示用モーダル画面 -->
+  <div class="modal-overlay" id="codeModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="modal-title mono">Source Code - Form1.cs</span>
+        <button type="button" class="close-btn" id="closeCodeModal">✕</button>
+      </div>
+      <!-- スクロールする枠（ここにソースコードを貼ります） -->
+      <pre class="code-scroll-area"><code>using System;
+using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
+using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.WinForms;
+
+namespace MyBrowserApp
+{
+    public partial class Form1 : Form
+    {
+        // 画面上部レイアウト
+        private TableLayoutPanel topPanel = new TableLayoutPanel();
+
+        // 画面パーツ
+        private Button btnBack = new Button();
+        private Button btnForward = new Button();
+        private Button btnReload = new Button();
+        private TextBox txtUrl = new TextBox();
+        private Button btnGo = new Button();
+        private Button btnSettings = new Button();
+
+        // Webブラウザ本体
+        private WebView2 webView = new WebView2();
+
+        // アプリの設定値（デフォルト）
+        private string homeUrl = "https://www.google.com";
+        private string searchEngineUrl = "https://www.google.com/search?q=";
+        private string settingsFilePath = "settings.txt";
+
+        public Form1()
+        {
+            LoadSettings(); // 起動時に設定ファイルを読み込み
+
+            this.Size = new Size(1100, 750);
+            this.Text = "マイ Web ブラウザ";
+
+            SetupUI();
+            InitBrowser();
+        }
+
+        // --- ⚙️ 設定ファイルの読み込み ---
+        private void LoadSettings()
+        {
+            try
+            {
+                if (File.Exists(settingsFilePath))
+                {
+                    string[] lines = File.ReadAllLines(settingsFilePath);
+                    if (lines.Length >= 1 && !string.IsNullOrWhiteSpace(lines[0]))
+                        homeUrl = lines[0].Trim();
+                    if (lines.Length >= 2 && !string.IsNullOrWhiteSpace(lines[1]))
+                        searchEngineUrl = lines[1].Trim();
+                }
+            }
+            catch
+            {
+                // 読み込み失敗時はデフォルト設定を使用
+            }
+        }
+
+        // --- ⚙️ 設定ファイルの保存 ---
+        private void SaveSettings()
+        {
+            try
+            {
+                string[] lines = { homeUrl.Trim(), searchEngineUrl.Trim() };
+                File.WriteAllLines(settingsFilePath, lines);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("設定の保存に失敗しました: " + ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SetupUI()
+        {
+            topPanel.Dock = DockStyle.Top;
+            topPanel.Height = 45;
+            topPanel.BackColor = Color.FromArgb(230, 230, 230);
+            topPanel.Padding = new Padding(5);
+
+            topPanel.ColumnCount = 6;
+            topPanel.RowCount = 1;
+
+            topPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 45F));
+            topPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 45F));
+            topPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 55F));
+            topPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            topPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+            topPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 60F));
+
+            void StyleButton(Button btn, string text)
+            {
+                btn.Text = text;
+                btn.Dock = DockStyle.Fill;
+                btn.BackColor = Color.White;
+                btn.ForeColor = Color.Black;
+                btn.Font = new Font("メイリオ", 9F, FontStyle.Bold);
+                btn.UseVisualStyleBackColor = false;
+                btn.Margin = new Padding(2);
+            }
+
+            StyleButton(btnBack, "←");
+            btnBack.Click += (s, e) => { if (webView.CanGoBack) webView.GoBack(); };
+
+            StyleButton(btnForward, "→");
+            btnForward.Click += (s, e) => { if (webView.CanGoForward) webView.GoForward(); };
+
+            StyleButton(btnReload, "更新");
+            btnReload.Click += (s, e) => webView.Reload();
+
+            txtUrl.Font = new Font("メイリオ", 10F);
+            txtUrl.Dock = DockStyle.Fill;
+            txtUrl.Margin = new Padding(3, 4, 3, 3);
+            txtUrl.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    NavigateToUrl();
+                    e.SuppressKeyPress = true;
+                }
+            };
+
+            StyleButton(btnGo, "移動");
+            btnGo.Click += (s, e) => NavigateToUrl();
+
+            StyleButton(btnSettings, "設定");
+            btnSettings.Click += BtnSettings_Click;
+
+            topPanel.Controls.Add(btnBack, 0, 0);
+            topPanel.Controls.Add(btnForward, 1, 0);
+            topPanel.Controls.Add(btnReload, 2, 0);
+            topPanel.Controls.Add(txtUrl, 3, 0);
+            topPanel.Controls.Add(btnGo, 4, 0);
+            topPanel.Controls.Add(btnSettings, 5, 0);
+
+            webView.Dock = DockStyle.Fill;
+
+            this.Controls.Add(webView);
+            this.Controls.Add(topPanel);
+        }
+
+        private async void InitBrowser()
+        {
+            await webView.EnsureCoreWebView2Async(null);
+
+            webView.SourceChanged += (s, e) =>
+            {
+                if (webView.Source != null)
+                {
+                    txtUrl.Text = webView.Source.ToString();
+                }
+            };
+
+            webView.CoreWebView2.DocumentTitleChanged += (s, e) =>
+            {
+                this.Text = $"{webView.CoreWebView2.DocumentTitle} - マイ Web ブラウザ";
+            };
+
+            webView.Source = new Uri(homeUrl);
+        }
+
+        private void NavigateToUrl()
+        {
+            string input = txtUrl.Text.Trim();
+            if (string.IsNullOrEmpty(input)) return;
+
+            // http:// または https:// から始まる場合は直接開く
+            if (input.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
+                input.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+            {
+                webView.Source = new Uri(input);
+            }
+            // ドットが含まれ、かつスペースを含まない（例: yahoo.co.jp）場合は https:// を補完して開く
+            else if (input.Contains(".") && !input.Contains(" "))
+            {
+                webView.Source = new Uri("https://" + input);
+            }
+            // それ以外（単語入力やスペース区切り検索など）は設定された検索エンジンで検索
+            else
+            {
+                string searchUrl = $"{searchEngineUrl}{Uri.EscapeDataString(input)}";
+                webView.Source = new Uri(searchUrl);
+            }
+        }
+
+        // --- ⚙️ 設定画面ダイアログ ---
+        private void BtnSettings_Click(object? sender, EventArgs e)
+        {
+            Form configForm = new Form
+            {
+                Text = "ブラウザ設定",
+                Size = new Size(400, 320),
+                StartPosition = FormStartPosition.CenterParent,
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                MaximizeBox = false,
+                MinimizeBox = false
+            };
+
+            Label lblHome = new Label { Text = "🏠 起動時に開くページ (URL):", Left = 20, Top = 20, AutoSize = true };
+            TextBox txtHome = new TextBox { Text = homeUrl, Left = 20, Top = 45, Width = 340 };
+
+            Label lblSearch = new Label { Text = "🔍 検索エンジン:", Left = 20, Top = 85, AutoSize = true };
+            ComboBox cmbSearch = new ComboBox { Left = 20, Top = 110, Width = 340, DropDownStyle = ComboBoxStyle.DropDownList };
+            cmbSearch.Items.AddRange(new object[] { "Google", "Yahoo! JAPAN", "Bing", "DuckDuckGo" });
+
+            // 現在設定されている検索エンジンを確実に判別して初期選択
+            string currentSearchLower = searchEngineUrl.ToLower();
+            if (currentSearchLower.Contains("yahoo")) cmbSearch.SelectedIndex = 1;
+            else if (currentSearchLower.Contains("bing")) cmbSearch.SelectedIndex = 2;
+            else if (currentSearchLower.Contains("duckduckgo")) cmbSearch.SelectedIndex = 3;
+            else cmbSearch.SelectedIndex = 0; // デフォルト: Google
+
+            Button btnClearCache = new Button { Text = "🗑️ 閲覧データ (キャッシュ/Cookie) を削除", Left = 20, Top = 155, Width = 340, Height = 35 };
+            btnClearCache.Click += async (s, ev) =>
+            {
+                if (webView.CoreWebView2 != null)
+                {
+                    await webView.CoreWebView2.Profile.ClearBrowsingDataAsync(
+                        CoreWebView2BrowsingDataKinds.CacheStorage |
+                        CoreWebView2BrowsingDataKinds.Cookies |
+                        CoreWebView2BrowsingDataKinds.BrowsingHistory
+                    );
+                    MessageBox.Show("閲覧データを削除しました！", "完了", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            };
+
+            Button btnSave = new Button { Text = "保存して閉じる", Left = 230, Top = 220, Width = 130, Height = 35, DialogResult = DialogResult.OK };
+            btnSave.Click += (s, ev) =>
+            {
+                homeUrl = txtHome.Text.Trim();
+
+                // 選択された検索エンジンのURLをセット
+                switch (cmbSearch.SelectedIndex)
+                {
+                    case 0: searchEngineUrl = "https://www.google.com/search?q="; break;
+                    case 1: searchEngineUrl = "https://search.yahoo.co.jp/search?p="; break;
+                    case 2: searchEngineUrl = "https://www.bing.com/search?q="; break;
+                    case 3: searchEngineUrl = "https://duckduckgo.com/?q="; break;
+                }
+
+                // 設定を保存
+                SaveSettings();
+
+                // アプリを終了
+                configForm.Close();
+                this.Close();
+            };
+
+            configForm.Controls.Add(lblHome);
+            configForm.Controls.Add(txtHome);
+            configForm.Controls.Add(lblSearch);
+            configForm.Controls.Add(cmbSearch);
+            configForm.Controls.Add(btnClearCache);
+            configForm.Controls.Add(btnSave);
+
+            configForm.ShowDialog(this);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+    }
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- モーダル開閉用JavaScript -->
+  <script>
+    const openBtn = document.getElementById('openCodeModal');
+    const closeBtn = document.getElementById('closeCodeModal');
+    const modal = document.getElementById('codeModal');
+
+    // ボタンを押したらフェードインで表示
+    openBtn.addEventListener('click', () => {
+      modal.classList.add('active');
+    });
+
+    // ×ボタンを押したら閉じる
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    // 背景の暗い部分をクリックしても閉じる
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+  </script>
+
+</body>
+</html>
